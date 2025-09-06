@@ -66,6 +66,45 @@ ul {
 	display: flex;
 	top: 1%;
 	left: 1%;
+	width: 98%;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 1000;
+}
+
+.language_selector {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.language_selector select {
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+	color: white;
+	padding: 5px 10px;
+	font-size: 14px;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.language_selector select:hover {
+	background: rgba(255, 255, 255, 0.2);
+	border-color: rgba(255, 255, 255, 0.5);
+}
+
+.language_selector select:focus {
+	outline: none;
+	background: rgba(255, 255, 255, 0.2);
+	border-color: #98a7e9;
+	box-shadow: 0 0 5px rgba(152, 167, 233, 0.5);
+}
+
+.language_selector select option {
+	background: #20212f;
+	color: white;
 }
 
 .info_btn {

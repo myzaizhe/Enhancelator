@@ -126,10 +126,16 @@ success_rate = [
   30 //+20
 ];
 
+// 计算经验值
+// 参数: item_level - 物品等级, enhance_level - 强化等级
+// 返回: 计算出的经验值
 function cal_exp(item_level, enhance_level) {
   return 1.4*(1+enhance_level)*(10+item_level)
 }
 
+// 强化模拟核心算法 - 使用马尔可夫链计算强化概率和成本
+// 参数: save_data - 用户保存的设置数据, sim_data - 模拟数据
+// 返回: 包含尝试次数、经验值、保护次数的结果对象
 function Enhancelate(save_data, sim_data)
 {
   let markov = math.zeros(20,20);
@@ -199,6 +205,9 @@ function Enhancelate(save_data, sim_data)
   return results;
 }
 
+// 获取物品的完整价格（包括制作成本）
+// 参数: hrid - 物品的HRID标识符
+// 返回: 物品的完整价格
 function get_full_item_price(hrid) {
   let final_cost = 0;
   let is_base_item = true;
@@ -250,7 +259,9 @@ function get_full_item_price(hrid) {
   return final_cost;
 }
 
-//tims as seconds, return string "00h:00m:00s"
+// 时间格式化函数 - 将秒数转换为 "00h:00m:00s" 格式
+// 参数: seconds - 秒数
+// 返回: 格式化后的时间字符串
 function formatTime(seconds) {
   // Calculate the number of hours, minutes, and seconds
   var hours = (Math.floor(seconds / 3600)).toString()
@@ -260,7 +271,9 @@ function formatTime(seconds) {
   return hours+"h, "+minutes.padStart(2, '0')+"m, "+remainingSeconds.padStart(2, '0')+"s"
 }
 
-// Update enhancer traits that built off of given inputs
+// 更新增强器属性和计算结果
+// 参数: recalculate - 是否重新计算结果（默认true）
+// 功能: 计算各种增强器的加成效果，更新成功率、速度等数值
 function update_values(recalculate = true) {
   // Enhancer bonus
   key = "/items/" + save_data.selected_enhancer.substring(4);
@@ -312,6 +325,9 @@ function update_values(recalculate = true) {
   }
 }
 
+// 验证输入字段的有效性
+// 参数: id - 字段ID, key - 数据键名, value - 输入值, min - 最小值, max - 最大值
+// 功能: 验证输入值是否在有效范围内，并更新相应的数据
 function validate_field(id, key, value, min, max) {
 	min = Number(min)
 	max	= Number(max)
@@ -337,6 +353,8 @@ function validate_field(id, key, value, min, max) {
   update_values(need_recalc);
 }
 
+// 重置界面和数据
+// 功能: 清空所有输入字段，重置物品选择，关闭选择菜单
 function reset() {
 	$("#protect_price_cell").css("display", "none")
 	$("#gloves_level_cell").css("display", "none")
@@ -355,17 +373,22 @@ function reset() {
 	update_values()
 }
 
+// 关闭选择菜单
+// 功能: 清空物品过滤器，隐藏物品选择容器
 function close_sel_menus() {
 	$("#item_filter").val("")
 	$("#sel_item_container").css("display", "none")
 }
 
+// 重置模拟结果表格
+// 功能: 清空模拟结果表格中的所有行
 function reset_sim_results() {
   var tbodyRef = document.getElementById('sim_result_table').getElementsByTagName('tbody')[0];
   while(tbodyRef.rows.length > 0) { tbodyRef.deleteRow(0); }
 }
 
-//changing any value will change avg, so it must be reseted
+// 重置所有计算结果
+// 功能: 清空结果表格，重新计算所有保护等级的结果，更新最优保护等级
 function reset_results() {
 	$("#used_proto_cell").css("display", "none")
 	for(i = 1; i <=5; i++) {
@@ -472,12 +495,17 @@ function reset_results() {
   decompElement.textContent = "Decomposition Value: " + formatedCost + " (" + essenceCount + " * " + essenceMarketCost + " * 0.78)";
 }
 
+// 更新进度条显示
+// 参数: completed - 已完成数量, total - 总数量
+// 功能: 更新进度条的宽度和百分比文本
 function updateProgress(completed, total) {
   const percent = Math.floor((completed / total) * 100);
   $("#progress-bar").css("width", `${percent}%`);
   $("#progress-text").text(`${percent}%`);
 }
 
+// 更新模拟数据表格
+// 功能: 根据模拟结果更新表格显示，计算百分位数统计和平均值，显示成功率
 function updateSimData() {
   reset_sim_results();
   const base_price = ($("#i_base_price").val() == "") ? Number($("#i_base_price").attr("placeholder")) : Number($("#i_base_price").val());
@@ -501,9 +529,15 @@ function updateSimData() {
   const pt_50 = Math.floor(results.length * 0.5);
   const pt_25 = Math.floor(results.length * 0.25);
 
+  // 计算平均值
+  const avg_actions = results.reduce((sum, r) => sum + r.actions, 0) / results.length;
+  const avg_protects = results.reduce((sum, r) => sum + r.protects, 0) / results.length;
+  const avg_cost = results.reduce((sum, r) => sum + r.cost, 0) / results.length;
+  const avg_cost_w_aux = results.reduce((sum, r) => sum + r.cost_w_aux, 0) / results.length;
+
   // Table visualization
-  const perc_texts = ["25%", "50%", "75%", "90%", "95%", "99%"];
-  const perc_vals = [pt_25, pt_50, pt_75, pt_90, pt_95, pt_99];
+  const perc_texts = ["25%", "50%", "75%", "90%", "95%", "99%", "Avg"];
+  const perc_vals = [pt_25, pt_50, pt_75, pt_90, pt_95, pt_99, -1]; // -1 表示平均值
   var tbodyRef = document.getElementById('sim_result_table').getElementsByTagName('tbody')[0];
   var newText = null;
   var newCell = null;
@@ -514,40 +548,122 @@ function updateSimData() {
     newCell = newRow.insertCell();
     newCell.className = 'results_data_cells';
     newCell.appendChild(newText);
+    return newCell;
   };
 
   for (let i = 0; i < perc_texts.length; i++) {
-    const est_result = results[perc_vals[i]];
     var newRow = tbodyRef.insertRow();
+    
+    // 判断是否为平均值行
+    const isAvgRow = (perc_vals[i] === -1);
+    
     // Percentiles
     newText = document.createTextNode(perc_texts[i]);
     newCell = newRow.insertCell();
     newCell.className = 'results_sim_cells';
+    if (isAvgRow) {
+      newCell.style.fontWeight = 'bold';
+      newCell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+    }
     newCell.appendChild(newText);
+    
     // Actions
-    let est_actions = results_action[perc_vals[i]].actions;
+    let est_actions;
+    if (isAvgRow) {
+      est_actions = avg_actions;
+    } else {
+      est_actions = results_action[perc_vals[i]].actions;
+    }
     AddNumberCell(est_actions)
+    
     // Time
     newText = document.createTextNode(formatTime(sim_data.attempt_time * est_actions));
     newCell = newRow.insertCell();
     newCell.className = 'results_data_cells';
+    if (isAvgRow) {
+      newCell.style.fontWeight = 'bold';
+      newCell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+    }
     newCell.appendChild(newText);
+    
     // Materials and costs
     // Note that the valid #est_mats should be equal to #materials
     let est_mats = [sim_data.mat_1, sim_data.mat_2, sim_data.mat_3, sim_data.mat_4, sim_data.mat_5];
     let est_coins = est_actions * sim_data.coins;
-    let est_protect_count = results_protect[perc_vals[i]].protects;
-    if (est_mats[0] > 0) { AddNumberCell(est_mats[0] * est_actions); }
-    if (est_mats[1] > 0) { AddNumberCell(est_mats[1] * est_actions); }
-    if (est_mats[2] > 0) { AddNumberCell(est_mats[2] * est_actions); }
-    if (est_mats[3] > 0) { AddNumberCell(est_mats[3] * est_actions); }
-    if (est_mats[4] > 0) { AddNumberCell(est_mats[4] * est_actions); }
-    AddNumberCell(est_coins);
-    AddNumberCell(est_protect_count);
+    let est_protect_count;
+    if (isAvgRow) {
+      est_protect_count = avg_protects;
+    } else {
+      est_protect_count = results_protect[perc_vals[i]].protects;
+    }
+    
+    if (est_mats[0] > 0) { 
+      const cell = AddNumberCell(est_mats[0] * est_actions);
+      if (isAvgRow) {
+        cell.style.fontWeight = 'bold';
+        cell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      }
+    }
+    if (est_mats[1] > 0) { 
+      const cell = AddNumberCell(est_mats[1] * est_actions);
+      if (isAvgRow) {
+        cell.style.fontWeight = 'bold';
+        cell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      }
+    }
+    if (est_mats[2] > 0) { 
+      const cell = AddNumberCell(est_mats[2] * est_actions);
+      if (isAvgRow) {
+        cell.style.fontWeight = 'bold';
+        cell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      }
+    }
+    if (est_mats[3] > 0) { 
+      const cell = AddNumberCell(est_mats[3] * est_actions);
+      if (isAvgRow) {
+        cell.style.fontWeight = 'bold';
+        cell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      }
+    }
+    if (est_mats[4] > 0) { 
+      const cell = AddNumberCell(est_mats[4] * est_actions);
+      if (isAvgRow) {
+        cell.style.fontWeight = 'bold';
+        cell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      }
+    }
+    
+    const coinsCell = AddNumberCell(est_coins);
+    if (isAvgRow) {
+      coinsCell.style.fontWeight = 'bold';
+      coinsCell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+    }
+    
+    const protectCell = AddNumberCell(est_protect_count);
+    if (isAvgRow) {
+      protectCell.style.fontWeight = 'bold';
+      protectCell.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+    }
+    
     // Estimated Cost
-    AddNumberCell(est_result.cost);
-    AddNumberCell(est_result.cost + base_price);
-    AddNumberCell(est_result.cost_w_aux + base_price);
+    if (isAvgRow) {
+      const costCell1 = AddNumberCell(avg_cost);
+      costCell1.style.fontWeight = 'bold';
+      costCell1.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      
+      const costCell2 = AddNumberCell(avg_cost + base_price);
+      costCell2.style.fontWeight = 'bold';
+      costCell2.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+      
+      const costCell3 = AddNumberCell(avg_cost_w_aux + base_price);
+      costCell3.style.fontWeight = 'bold';
+      costCell3.style.backgroundColor = 'rgba(152, 167, 233, 0.2)';
+    } else {
+      const est_result = results[perc_vals[i]];
+      AddNumberCell(est_result.cost);
+      AddNumberCell(est_result.cost + base_price);
+      AddNumberCell(est_result.cost_w_aux + base_price);
+    }
   }
   const money_i_have = save_data.emu_money;
   if (g_sim_results != null && money_i_have > 0) {
@@ -566,7 +682,9 @@ function updateSimData() {
   }
 }
 
-// Simulation-based sampling function for hierarchical success rates
+// 基于模拟的强化采样函数
+// 参数: save_data - 用户设置, sim_data - 模拟数据
+// 功能: 使用Web Worker进行大量模拟计算，统计强化结果
 function sim_enhance(save_data, sim_data) {
   let completed_times = 0;
   const sim_time = Number($("#i_emu_time").val());
@@ -611,16 +729,22 @@ function sim_enhance(save_data, sim_data) {
   }
 }
 
-// Favorites (Bookmarks)
+// 收藏夹（书签）相关函数
+// 确保收藏夹数据已初始化
 function ensureFavoritesInit() {
   if(save_data.favorites == undefined) { save_data.favorites = []; }
 }
 
+// 检查物品是否为收藏
+// 参数: hrid - 物品HRID
+// 返回: 是否为收藏物品
 function isFavorite(hrid) {
   ensureFavoritesInit();
   return save_data.favorites.indexOf(hrid) !== -1;
 }
 
+// 更新书签按钮UI
+// 功能: 根据当前选中物品是否已收藏来更新书签按钮的显示状态
 function updateBookmarkUI() {
   ensureFavoritesInit();
   const btn = $("#bookmark_btn");
@@ -633,6 +757,8 @@ function updateBookmarkUI() {
   }
 }
 
+// 渲染收藏夹栏
+// 功能: 在收藏夹栏中显示所有收藏的物品按钮
 function renderFavoritesBar() {
   ensureFavoritesInit();
   const bar = $("#favorites_bar");
@@ -645,6 +771,9 @@ function renderFavoritesBar() {
   });
 }
 
+// 切换物品收藏状态
+// 参数: hrid - 物品HRID
+// 功能: 添加或移除物品的收藏状态，更新UI和本地存储
 function toggleFavorite(hrid) {
   ensureFavoritesInit();
   const idx = save_data.favorites.indexOf(hrid);
@@ -655,6 +784,9 @@ function toggleFavorite(hrid) {
   renderFavoritesBar();
 }
 
+// 更换选中的物品
+// 参数: value - 物品显示名称, key - 物品HRID
+// 功能: 重置界面，加载新物品的强化数据，更新UI显示
 function change_item(value, key) {
 	reset()
   save_data.selected_item = key;
@@ -772,6 +904,8 @@ function change_item(value, key) {
 	renderFavoritesBar();
 }
 
+// 物品过滤函数
+// 功能: 根据搜索关键词和过滤选项显示/隐藏物品列表
 function filter() {
 	temp = $("#item_filter").val().toLowerCase()
 	if(temp != "") {
@@ -820,6 +954,8 @@ function filter() {
   }
 }
 
+// 初始化用户数据
+// 功能: 从本地存储加载用户设置，进行数据迁移，更新UI界面
 function init_user_data() {
 	if(localStorage.getItem("Enhancelator")) {
 		save_data = JSON.parse(localStorage.getItem("Enhancelator"));
@@ -912,6 +1048,9 @@ function init_user_data() {
   else { $("#charm_grid_row").css("display", "none"); }
 }
 
+// 增强器选择函数
+// 参数: element - 被点击的增强器按钮元素
+// 功能: 切换增强器选择，更新UI状态
 function enhancer_selection(element)
 {
   $("#" + save_data.selected_enhancer).attr("class", "btn_icon");
@@ -921,6 +1060,9 @@ function enhancer_selection(element)
   update_values();
 }
 
+// 护符等级选择函数
+// 参数: element - 被点击的护符按钮元素
+// 功能: 切换护符等级选择，更新UI状态
 function charm_selection(element)
 {
   $(".charm_btn").attr("class", "btn_icon charm_btn");
@@ -932,6 +1074,9 @@ function charm_selection(element)
   update_values();
 }
 
+// 茶类选择函数
+// 参数: element - 被点击的茶类按钮元素
+// 功能: 切换茶类选择（互斥选择），更新UI状态
 function tea_selection(element)
 {
   if(element.className == "btn_icon")
@@ -952,6 +1097,9 @@ function tea_selection(element)
   reset_results();
 }
 
+// 保护物品选择函数
+// 参数: element - 被点击的保护物品按钮元素
+// 功能: 切换保护物品选择，更新价格和UI状态
 function protect_selection(element)
 {
   const index = Number(element.id.substring(5, 6));

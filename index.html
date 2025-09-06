@@ -29,6 +29,12 @@
   </div>
   <div class="by">
 		<p>Made by: dohnuts, MangoFlavor, guch8017, AyajiLin, Trafalet. QA: Purpenflurb</p>
+		<div class="language_selector">
+			<select id="language_selector" onchange="switchLanguage()">
+				<option value="en">English</option>
+				<option value="zh">中文</option>
+			</select>
+		</div>
 		<div id="info_btn" class="info_btn btn">
 			<p>?</p>
 		</div>
@@ -36,7 +42,83 @@
   <div id="info_menu" class="info_menu">
 		<div>
       <div class="close btn" onclick="$('#info_menu').css('display','none')"><p>&#10005;</p></div>
-			<p>How to use:
+			<p data-en="How to use:
+        <br><br>
+        <ul>
+          <li>Choose an item from the item list</li>
+          <li>Fill in required data in its corresponding field</li>
+          <li>Data will be calculated</li>
+        </ul>
+        <br>
+        The result will be displayed in a table, the shown result values are average values, given the nature of enhancing, the item might cost less than what represented or might cost x10 more!
+        <br><br>
+        <b>What are all these items and buffs?</b>
+        <br>
+        The Checkbox is whether to take into account the item/buff's effect or not, and the field is for its enhancement/buff level
+        <br><br>
+        <b>What is Hourly Rate?</b>
+        <br>
+        An added value after cost calculation, it is a way to calculate total amount to charge someone if you are charging based on hourly rate
+        <br><br>
+        <b>What is % Rate?</b>
+        <br>
+        An added value after cost calculation, it is a way charge someone based on % relative to final cost
+        <br><br>
+        <b>What is Target?</b>
+        <br>
+        What level you want the item to be enhanced to
+        <br><br>
+        <b>What are the colored rows in the result table?</b>
+        <br>
+        Blue is least material cost.
+        <br>
+        Green is least total cost.
+        <br><br>
+        <b>What is Prot?</b>
+        <br>
+        Protection level
+        <br><br>
+        <b>What is Actions?</b>
+        <br>
+        Enhance attempts" data-zh="使用方法:
+        <br><br>
+        <ul>
+          <li>从物品列表中选择一个物品</li>
+          <li>在相应字段中填入所需数据</li>
+          <li>数据将被计算</li>
+        </ul>
+        <br>
+        结果将显示在表格中，显示的结果值是平均值，考虑到强化的性质，物品的成本可能比显示的要少，也可能多10倍！
+        <br><br>
+        <b>这些物品和增益是什么？</b>
+        <br>
+        复选框决定是否考虑物品/增益的效果，字段用于其强化/增益等级
+        <br><br>
+        <b>什么是时薪？</b>
+        <br>
+        成本计算后的附加值，如果您按小时收费，这是计算总金额的方法
+        <br><br>
+        <b>什么是百分比费率？</b>
+        <br>
+        成本计算后的附加值，这是根据最终成本的百分比收费的方法
+        <br><br>
+        <b>什么是目标？</b>
+        <br>
+        您希望物品强化到的等级
+        <br><br>
+        <b>结果表格中的彩色行是什么？</b>
+        <br>
+        蓝色是最少材料成本
+        <br>
+        绿色是最少总成本
+        <br><br>
+        <b>什么是保护？</b>
+        <br>
+        保护等级
+        <br><br>
+        <b>什么是行动次数？</b>
+        <br>
+        强化尝试次数">How to use:
         <br><br>
         <ul>
           <li>Choose an item from the item list</li>
@@ -82,43 +164,43 @@
 		<div>
       <div class="close btn" onclick="$('#sim_info_menu').css('display','none')"><p>&#10005;</p></div>
       <section>
-        <h2>How to use</h2>
+        <h2 data-en="How to use" data-zh="使用方法">How to use</h2>
         <ul>
-          <li>Fill in number of simulation samples (# Simulation)</li>
-          <li>Click the "Simulate" button at specific Prot. level</li>
-          <li>Simulated data for the data row will be shown</li>
+          <li data-en="Fill in number of simulation samples (# Simulation)" data-zh="填入模拟样本数量（# 模拟）">Fill in number of simulation samples (# Simulation)</li>
+          <li data-en="Click the \"Simulate\" button at specific Prot. level" data-zh="在特定保护等级点击\"模拟\"按钮">Click the "Simulate" button at specific Prot. level</li>
+          <li data-en="Simulated data for the data row will be shown" data-zh="将显示该数据行的模拟数据">Simulated data for the data row will be shown</li>
         </ul>
-        <p>
+        <p data-en="If the \"Sort w/ Aux\" is checked, the estimated cost will be sorted including the Hourly Rate and the % Rate." data-zh="如果勾选\"辅助排序\"，预估成本将按包含时薪和百分比费率的方式排序。">
         If the "Sort w/ Aux" is checked, the estimated cost will be sorted including the Hourly Rate and the % Rate.
         </p>
       </section>
       <br />
       <section>
-        <h2>Metrics Explained</h2>
-        <p>
+        <h2 data-en="Metrics Explained" data-zh="指标说明">Metrics Explained</h2>
+        <p data-en="<b><u>Success Rate: </u></b>The data is shown using different percentile of success rate. For example, a 50% success rate means that 50% of the attempts will succeed with the estimated costs." data-zh="<b><u>成功率: </u></b>数据使用不同的成功率百分位数显示。例如，50%的成功率意味着50%的尝试将以预估成本成功。">
           <b><u>Success Rate: </u></b>The data is shown using different percentile of success rate. 
           For example, a 50% success rate means that 50% of the attempts will succeed with the estimated costs.
         </p>
         <br />
-        <p>
+        <p data-en="<b><u>Metrics with *: </u></b>The estimated costs of certain items at specific success rate. Note that this is the percentile data for certain items, which is kinda unrelated to the Est. Cost. However, this data is a good reference for the user to determine the usage of certain items to some degree." data-zh="<b><u>带*的指标: </u></b>特定成功率下某些物品的预估成本。请注意，这是某些物品的百分位数数据，与预估成本无关。但是，这些数据是用户确定某些物品使用程度的良好参考。">
           <b><u>Metrics with *: </u></b>The estimated costs of certain items at specific success rate. 
           Note that this is the percentile data for certain items, which is kinda unrelated to the Est. Cost.
           However, this data is a good reference for the user to determine the usage of certain items to some degree.
         </p>
         <br />
-        <p>
+        <p data-en="<b><u>Est. Mat Cost: </u></b>The estimated material cost at different success rates." data-zh="<b><u>预估材料成本: </u></b>不同成功率下的预估材料成本。">
           <b><u>Est. Mat Cost: </u></b>The estimated material cost at different success rates. 
         </p>
         <br />
-        <p>
+        <p data-en="<b><u>Est. Cost: </u></b>The estimated cost at different success rates." data-zh="<b><u>预估成本: </u></b>不同成功率下的预估成本。">
           <b><u>Est. Cost: </u></b>The estimated cost at different success rates. 
         </p>
         <br />
-        <p>
+        <p data-en="<b><u>Est. Total Cost: </u></b>The estimated cost at different success rates, including Hourly Rate and % Rate." data-zh="<b><u>预估总成本: </u></b>不同成功率下的预估成本，包括时薪和百分比费率。">
           <b><u>Est. Total Cost: </u></b>The estimated cost at different success rates, including Hourly Rate and % Rate. 
         </p>
         <br />
-        <p>
+        <p data-en="<b><u>Success Rate with Coins: </u></b>The success rate with specific coins based on the Est. Cost." data-zh="<b><u>金币成功率: </u></b>基于预估成本的特定金币成功率。">
           <b><u>Success Rate with Coins: </u></b>The success rate with specific coins based on the Est. Cost.
         </p>
       </section>
@@ -126,15 +208,15 @@
 	</div>
   <div id="sel_item_container" class="sel_item_container">
     <div style="display:flex">
-      <p>Hide Junk: </p>
+      <p data-en="Hide Junk:" data-zh="隐藏垃圾:">Hide Junk:</p>
       <input id="i_hide_junk" type="checkbox" class="sel_item_hide_items_checkbox">
-      <p>Hide Charms: </p>
+      <p data-en="Hide Charms:" data-zh="隐藏护符:">Hide Charms:</p>
       <input id="i_hide_charms" type="checkbox" class="sel_item_hide_items_checkbox">
-      <p>Hide (R): </p>
+      <p data-en="Hide (R):" data-zh="隐藏(精炼):">Hide (R):</p>
       <input id="i_hide_refined" type="checkbox" class="sel_item_hide_items_checkbox">
       <div class="close btn" onclick="$('#sel_item_container').css('display','none')"><p>&#10005;</p></div>
     </div>
-    <input id="item_filter" type="text" class="sel_item_filter" placeholder="Item Filter">
+    <input id="item_filter" type="text" class="sel_item_filter" placeholder="Item Filter" data-en-placeholder="Item Filter" data-zh-placeholder="物品过滤器">
     <div id="sel_item" class="sel_item_icons"></div>
   </div>
 	<div id="enhance_area" class="enhance_area">
@@ -142,82 +224,82 @@
       <div>
         <table>
           <tr>
-            <td><p>Skill Level</p></td>
+            <td><p data-en="Skill Level" data-zh="技能等级">Skill Level</p></td>
             <td></td>
             <td align="right"><input id="i_enhancing_level" type="number" min="1" max="200" placeholder="100"></td>
           </tr>
           <tr>
-            <td><p>Observatory Level</p></td>
+            <td><p data-en="Observatory Level" data-zh="天文台等级">Observatory Level</p></td>
             <td></td>
             <td align="right"><input id="i_observatory_level" type="number" min="0" max="8" placeholder="0"></td>
           </tr>
           <tr><td colspan="3"><div class="top_divider"></div></td></tr>
           <tr>
-            <td><p>Enchanted Gloves</p></td>
+            <td><p data-en="Enchanted Gloves" data-zh="附魔手套">Enchanted Gloves</p></td>
             <td align="center"><input id="i_use_enchanted" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_enchanted_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr>
-            <td><p>Guzzling Pouch</p></td>
+            <td><p data-en="Guzzling Pouch" data-zh="暴饮之囊">Guzzling Pouch</p></td>
             <td align="center"><input id="i_use_guzzling" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_guzzling_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr>
-            <td><p>Enhancer's Top</p></td>
+            <td><p data-en="Enhancer's Top" data-zh="强化者上衣">Enhancer's Top</p></td>
             <td align="center"><input id="i_use_enhancer_top" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_enhancer_top_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr>
-            <td><p>Enhancer's Bottoms</p></td>
+            <td><p data-en="Enhancer's Bottoms" data-zh="强化者下装">Enhancer's Bottoms</p></td>
             <td align="center"><input id="i_use_enhancer_bot" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_enhancer_bot_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr>
-            <td><p>Philosopher's Necklace</p></td>
+            <td><p data-en="Philosopher's Necklace" data-zh="贤者项链">Philosopher's Necklace</p></td>
             <td align="center"><input id="i_use_philo_neck" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_philo_neck_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr>
-            <td><p>Enhancing Charm</p></td>
+            <td><p data-en="Enhancing Charm" data-zh="强化护符">Enhancing Charm</p></td>
             <td align="center"><input id="i_use_charm" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_charm_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
           <tr id="charm_grid_row" style="display: none;">
             <td colspan="3">
-              <button id="btn_charm_trainee" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Trainee Enhancing Charm">
+              <button id="btn_charm_trainee" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Trainee Enhancing Charm" data-en-title="Trainee Enhancing Charm" data-zh-title="实习强化护符">
                 <svg><use xlink:href="#trainee_enhancing_charm"></use></svg>
               </button>
-              <button id="btn_charm_basic" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Basic Enhancing Charm">
+              <button id="btn_charm_basic" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Basic Enhancing Charm" data-en-title="Basic Enhancing Charm" data-zh-title="基础强化护符">
                 <svg><use xlink:href="#basic_enhancing_charm"></use></svg>
               </button>
-              <button id="btn_charm_advanced" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Advanced Enhancing Charm">
+              <button id="btn_charm_advanced" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Advanced Enhancing Charm" data-en-title="Advanced Enhancing Charm" data-zh-title="高级强化护符">
                 <svg><use xlink:href="#advanced_enhancing_charm"></use></svg>
               </button>
-              <button id="btn_charm_expert" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Expert Enhancing Charm">
+              <button id="btn_charm_expert" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Expert Enhancing Charm" data-en-title="Expert Enhancing Charm" data-zh-title="专家强化护符">
                 <svg><use xlink:href="#expert_enhancing_charm"></use></svg>
               </button>
-              <button id="btn_charm_master" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Master Enhancing Charm">
+              <button id="btn_charm_master" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Master Enhancing Charm" data-en-title="Master Enhancing Charm" data-zh-title="大师强化护符">
                 <svg><use xlink:href="#master_enhancing_charm"></use></svg>
               </button>
-              <button id="btn_charm_grandmaster" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Grandmaster Enhancing Charm">
+              <button id="btn_charm_grandmaster" class="btn_icon charm_btn" onclick="charm_selection(this)" title="Grandmaster Enhancing Charm" data-en-title="Grandmaster Enhancing Charm" data-zh-title="宗师强化护符">
                 <svg><use xlink:href="#grandmaster_enhancing_charm"></use></svg>
               </button>
             </td>
           </tr>
            <tr><td colspan="3"><div class="top_divider"></div></td></tr>
           <tr>
-            <td><p>Enhancing buff</p></td>
+            <td><p data-en="Enhancing buff" data-zh="强化增益">Enhancing buff</p></td>
             <td align="center"><input id="i_use_enhancing_buff" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_enhancing_buff_level" type="number" min="1" max="20" placeholder="1"></td>
           </tr>
           <tr>
-            <td><p>Experience buff</p></td>
+            <td><p data-en="Experience buff" data-zh="经验增益">Experience buff</p></td>
             <td align="center"><input id="i_use_experience_buff" type="checkbox" class="enhancer_stats_check_box"></td>
             <td align="right"><input id="i_experience_buff_level" type="number" min="1" max="20" placeholder="1"></td>
           </tr>
           <tr><td colspan="3"><div class="top_divider"></div></td></tr>
           <tr>
-            <td><p>Enhancer Level</p></td>
+            <td><p data-en="Enhancer Level" data-zh="强化器等级">Enhancer Level</p></td>
             <td></td>
             <td align="right"><input id="i_enhancer_level" type="number" min="0" max="20" placeholder="0"></td>
           </tr>
@@ -276,7 +358,7 @@
           <div class="item_slot_icon">
             <svg><use xlink:href="#"></use></svg>
           </div>
-          <button id="bookmark_btn" class="bookmark_btn" title="Bookmark item">🖈</button>
+          <button id="bookmark_btn" class="bookmark_btn" title="Bookmark item" data-en-title="Bookmark item" data-zh-title="收藏物品">🖈</button>
         </div>
         <div id="favorites_bar" class="favorites_bar"></div>
       </div>
@@ -285,18 +367,18 @@
           <table>
             <tbody style="display: table-header-group">
               <tr>
-                <td colspan="2"><p>Hourly Rate:</p></td>
+                <td colspan="2"><p data-en="Hourly Rate:" data-zh="工时费/h:">Hourly Rate:</p></td>
                 <td align="right"><input id="i_hourly_rate" type="number" min="0" max="100000000000" placeholder="5000000"></td>
               </tr>
               <tr>
-                <td colspan="2"><p>% Rate:</p></td>
+                <td colspan="2"><p data-en="% Rate:" data-zh="税率:">% Rate:</p></td>
                 <td align="right"><input id="i_percent_rate" type="number" min="0" max="100" placeholder="2"></td>
               </tr>
               <tr><td colspan="3"><div class="top_divider"></div></td></tr>
               <tr>
-                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;">Item</td>
-                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;">Count</td>
-                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;">Price</td>
+                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;" data-en="Item" data-zh="Item">Item</td>
+                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;" data-en="Count" data-zh="数量">Count</td>
+                <td style="padding: 0px 5px 0px 2px; font-weight: bold; text-align: center;" data-en="Price" data-zh="价格">Price</td>
               </tr>
               <tr id="mat_1_cell">
                 <td id="mat_1_icon" class="mat_icon">
@@ -370,7 +452,7 @@
               </tr>
               <tr><td colspan="3"><div class="top_divider"></div></td></tr>
               <tr>
-                <td colspan="2"><p>Target:</p></td>
+                <td colspan="2"><p data-en="Target:" data-zh="目标等级:">Target:</p></td>
                 <td><input id="i_stop_at" type="number" min="1" max="20" value="10" placeholder="10"></td>
               </tr>
             </tbody>
@@ -382,21 +464,21 @@
       <table id="myTable" class="results_table">
         <thead>
           <tr>
-            <th class="results_header_cells">Prot</th>
-            <th class="results_header_cells">Actions</th>
-            <th class="results_header_cells">Time</th>
-            <th class="results_header_cells">Exp</th>
-            <th class="results_header_cells">Exp/h</th>
-            <th class="results_header_cells" title="Gold / Experience">G/E</th>
+            <th class="results_header_cells" data-en="Prot" data-zh="Prot">Prot</th>
+            <th class="results_header_cells" data-en="Actions" data-zh="次数">Actions</th>
+            <th class="results_header_cells" data-en="Time" data-zh="时间">Time</th>
+            <th class="results_header_cells" data-en="Exp" data-zh="经验">Exp</th>
+            <th class="results_header_cells" data-en="Exp/h" data-zh="经验/h">Exp/h</th>
+            <th class="results_header_cells" title="Gold / Experience" data-en="G/E" data-zh="金币/经验">G/E</th>
             <th class="results_header_icon_cell" id="r_mat_1_icon"><svg><use xlink:href="#"></use></svg></th>
             <th class="results_header_icon_cell" id="r_mat_2_icon"><svg><use xlink:href="#"></use></svg></th>
             <th class="results_header_icon_cell" id="r_mat_3_icon"><svg><use xlink:href="#"></use></svg></th>
             <th class="results_header_icon_cell" id="r_mat_4_icon"><svg><use xlink:href="#"></use></svg></th>
             <th class="results_header_icon_cell" id="r_mat_5_icon"><svg><use xlink:href="#"></use></svg></th>
             <th class="results_header_icon_cell" ><svg><use xlink:href="#coin"></use></svg></th>
-            <th class="results_header_cells">Protects</th>
-            <th class="results_header_cells" title="Enhancing costs only, excludes base item">Mat Cost</th>
-            <th class="results_header_cells" title="(Mat Cost + Base Item + Time * Hourly Rate) * (1 + % Rate)">Total Cost</th>
+            <th class="results_header_cells" data-en="Protects" data-zh="保护次数">Protects</th>
+            <th class="results_header_cells" title="Enhancing costs only, excludes base item" data-en="Mat Cost" data-zh="材料成本">Mat Cost</th>
+            <th class="results_header_cells" title="(Mat Cost + Base Item + Time * Hourly Rate) * (1 + % Rate)" data-en="Total Cost" data-zh="总成本">Total Cost</th>
           </tr>
         </thead>
         <tbody id="results_table_body" style="display: table-header-group">
@@ -406,53 +488,53 @@
     <div id="sim_wrapper">
       <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; justify-content: center;">
-          <p># Simulation:</p>
+          <p data-en="# Simulation:" data-zh="模拟次数:"># Simulation:</p>
           <input id="i_emu_time" type="number" min="1" max="100000" value="32768" placeholder="32768">
         </div>
         <div style="display: flex; align-items: center; justify-content: center;">
-          <p>Sort w/ Aux:</p>
+          <p data-en="Sort w/ Aux:" data-zh="辅助排序:">Sort w/ Aux:</p>
           <input id="i_emu_w_aux" type="checkbox" class="enhancer_stats_check_box">
         </div>
         <div style="display: flex; align-items: center; justify-content: center;">
-          <p>Coins I have:</p>
+          <p data-en="Coins I have:" data-zh="我的金币:">Coins I have:</p>
           <input id="i_emu_money" type="number" min="0" max="100000000000" value="0" placeholder="0">
         </div>
         <div style="display: flex; align-items: center; justify-content: center;">
-          <p>Prot:</p>
+          <p data-en="Prot:" data-zh="保护:">Prot:</p>
           <select id="i_emu_prot" style="width: 100px; margin: 0px 8px; padding: 2px 2px;">
           </select>
         </div>
       </div>
-      <button id="sim_btn" class="sim_btn">Simulate</button>
+      <button id="sim_btn" class="sim_btn" data-en="Simulate" data-zh="模拟">Simulate</button>
       <div id="sim_result_wrapper">
-        <h1>Simulation Results&nbsp;<span id="sim_info_btn" class="btn">&nbsp;?&nbsp;</span></h1>
+        <h1 data-en="Simulation Results" data-zh="模拟结果">&nbsp;<span id="sim_info_btn" class="btn">&nbsp;?&nbsp;</span></h1>
         <div class="sim_result">
           <table id="sim_result_table" class="results_table">
             <thead>
               <tr>
-                <th class="results_header_cells">Success Rate</th>
-                <th class="results_header_cells">Actions<sup>*</sup></th>
-                <th class="results_header_cells">Time<sup>*</sup></th>
+                <th class="results_header_cells" data-en="Success Rate" data-zh="成功率">Success Rate</th>
+                <th class="results_header_cells" data-en="Actions*" data-zh="行动次数*">Actions<sup>*</sup></th>
+                <th class="results_header_cells" data-en="Time*" data-zh="时间*">Time<sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" id="sim_r_mat_1_icon"><svg><use xlink:href="#"></use></svg><sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" id="sim_r_mat_2_icon"><svg><use xlink:href="#"></use></svg><sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" id="sim_r_mat_3_icon"><svg><use xlink:href="#"></use></svg><sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" id="sim_r_mat_4_icon"><svg><use xlink:href="#"></use></svg><sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" id="sim_r_mat_5_icon"><svg><use xlink:href="#"></use></svg><sup>*</sup></th>
                 <th class="sim_results_header_icon_cell" ><svg><use xlink:href="#coin"></use></svg><sup>*</sup></th>
-                <th class="results_header_cells">Protects<sup>*</sup></th>
-                <th class="results_header_cells">Est. Mat Cost</th>
-                <th class="results_header_cells">Est. Cost</th>
-                <th class="results_header_cells">Est. Total Cost</th>
+                <th class="results_header_cells" data-en="Protects*" data-zh="保护次数*">Protects<sup>*</sup></th>
+                <th class="results_header_cells" data-en="Est. Mat Cost" data-zh="预估材料成本">Est. Mat Cost</th>
+                <th class="results_header_cells" data-en="Est. Cost" data-zh="预估成本">Est. Cost</th>
+                <th class="results_header_cells" data-en="Est. Total Cost" data-zh="预估总成本">Est. Total Cost</th>
               </tr>
             </thead>
             <tbody id="sim_result_table_body" style="display: table-header-group">
             </tbody>
           </table>
         </div>
-        <h2 style="text-align:center" id="sim_success_rate_wrapper">Success rate with <span id="sim_success_rate_coins">50</span> coins: <span id="sim_success_rate_pt">100</span>%</h2>
+        <h2 style="text-align:center" id="sim_success_rate_wrapper" data-en="Success rate with" data-zh="金币成功率">Success rate with <span id="sim_success_rate_coins">50</span> coins: <span id="sim_success_rate_pt">100</span>%</h2>
       </div>
     </div>
-    <div id="decomp" style="display: none;">Decomposition Value:</div>
+    <div id="decomp" style="display: none;" data-en="Decomposition Value:" data-zh="分解价值:">Decomposition Value:</div>
   </div>
 
   <svg viewBox="0 0 1920 1130" fill="none" xmlns="http://www.w3.org/2000/svg" id="bg_svg">
@@ -685,5 +767,57 @@
 
   <script type="text/javascript" src="math.js"></script>
 	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript">
+		// 语言切换功能
+		let currentLanguage = 'en'; // 默认语言
+		
+		function switchLanguage() {
+			const selector = document.getElementById('language_selector');
+			currentLanguage = selector.value;
+			
+			// 更新所有带有data-en和data-zh属性的元素
+			const elements = document.querySelectorAll('[data-en][data-zh]');
+			elements.forEach(element => {
+				if (currentLanguage === 'zh') {
+					element.textContent = element.getAttribute('data-zh');
+				} else {
+					element.textContent = element.getAttribute('data-en');
+				}
+			});
+			
+			// 更新placeholder属性
+			const inputs = document.querySelectorAll('[data-en-placeholder][data-zh-placeholder]');
+			inputs.forEach(input => {
+				if (currentLanguage === 'zh') {
+					input.placeholder = input.getAttribute('data-zh-placeholder');
+				} else {
+					input.placeholder = input.getAttribute('data-en-placeholder');
+				}
+			});
+			
+			// 更新title属性
+			const titles = document.querySelectorAll('[data-en-title][data-zh-title]');
+			titles.forEach(element => {
+				if (currentLanguage === 'zh') {
+					element.title = element.getAttribute('data-zh-title');
+				} else {
+					element.title = element.getAttribute('data-en-title');
+				}
+			});
+			
+			// 保存语言选择到本地存储
+			localStorage.setItem('enhancelator_language', currentLanguage);
+		}
+		
+		// 页面加载时恢复语言设置
+		document.addEventListener('DOMContentLoaded', function() {
+			const savedLanguage = localStorage.getItem('enhancelator_language');
+			if (savedLanguage) {
+				currentLanguage = savedLanguage;
+				document.getElementById('language_selector').value = savedLanguage;
+			}
+			switchLanguage();
+		});
+	</script>
 </body>
 </html>
